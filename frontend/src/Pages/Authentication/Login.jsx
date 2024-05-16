@@ -10,6 +10,23 @@ const Login = () => {
     const [password, setPassword] = useState("");
     const navigate = useNavigate();
 
+    const handleLogin = async (e) => {
+        e.preventDefault();
+        try {
+            const { data } = await axios.post(
+                "http://localhost:4000/restaurant/auth/login",
+                { email, password }
+            );
+            toast.success(data.message);
+            setEmail("");
+            setPassword("");
+            localStorage.setItem("token", data.token);
+            navigate("/");
+        } catch (error) {
+            toast.error(error.response.data.message);
+        }
+    }
+
     return (
         <section className="reservation" id="reservation" style={{ height: "100vh" }}>
             <div className="container">
@@ -36,7 +53,7 @@ const Login = () => {
                                     onChange={(e) => setPassword(e.target.value)}
                                 />
                             </div>
-                            <button type="submit">
+                            <button type="submit" onClick={handleLogin}>
                                 Login{" "}
                                 <span>
                                     <HiOutlineArrowNarrowRight />

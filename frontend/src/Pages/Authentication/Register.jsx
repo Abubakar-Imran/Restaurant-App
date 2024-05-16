@@ -13,6 +13,26 @@ const Register = () => {
     const [phone, setPhone] = useState();
     const navigate = useNavigate();
 
+    const handleRegister = async (e) => {
+        e.preventDefault();
+        try {
+            const { data } = await axios.post(
+                "http://localhost:4000/restaurant/auth/register",
+                { firstName, lastName, email, password, phone }
+            );
+            toast.success(data.message);
+            setFirstName("");
+            setLastName("");
+            setEmail("");
+            setPassword("");
+            setPhone();
+            localStorage.setItem("token", data.token);
+            navigate("/login");
+        } catch (error) {
+            toast.error(error.response.data.message);
+        }
+    };
+
     return (
         <section className="reservation" id="reservation" style={{ height: "100vh" }}>
             <div className="container">
@@ -61,7 +81,7 @@ const Register = () => {
                                     onChange={(e) => setPassword(e.target.value)}
                                 />
                             </div>
-                            <button type="submit">
+                            <button type="submit" onClick={handleRegister}>
                                 CREATE{" "}
                                 <span>
                                     <HiOutlineArrowNarrowRight />
