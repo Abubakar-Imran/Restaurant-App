@@ -1,5 +1,5 @@
 import React from 'react'
-import {data} from '../restApi.json'
+import {dishes} from '../dishes.json'
 const Menu = () => {
   return (
     <>
@@ -11,7 +11,7 @@ const Menu = () => {
             </div>
             <div className="dishes_container">
                 {
-                    data[0].dishes.map(element => (
+                    dishes.map(element => (
                         <div className="card" key={element.id}>
                                 <img src={element.image} alt={element.title} />
                                 <h3>{element.title}</h3>
