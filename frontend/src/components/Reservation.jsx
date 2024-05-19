@@ -18,7 +18,7 @@ const Reservation = () => {
     e.preventDefault();
     try {
       const { data } = await axios.post(
-        "http://localhost:3333/restaurant/reservation/send",
+        "http://localhost:4000/restaurant/reservation/send",
         { firstName, lastName, email, phone, date, time },
         
       );
